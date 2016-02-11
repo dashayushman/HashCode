@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -230,9 +231,13 @@ public class Utils {
 				parameters.setMaxPayload(Integer.parseInt(basicParams[4]));
 				
 				for (int i = 0; i < parameters.getTotalDrones(); i++) {
+					Location loc = new Location();
+					loc.setColumn(0);
+					loc.setRow(0);
 					Drone drone = new Drone();
 					drone.setDroneId(i);
 					drone.setTotalWeight(parameters.getMaxPayload());
+					drone.setLocation(loc);
 					droneList.add(drone);
 					droneMap.put(i, drone);
 				}
@@ -278,18 +283,30 @@ public class Utils {
 				
 				
 				for (int i = 0; i < parameters.getTotalWareHouse(); i++) {
-					String[] prodTypeWeights = fileLinsList.get(lineCounter).split(" ");
+					WareHouse warehouse = new WareHouse();
+					String[] wareHouseLocation = fileLinsList.get(lineCounter).split(" ");
 					Location location = new Location();
-					location.setRow(Integer.parseInt(prodTypeWeights[0]));
-					location.setColumn(Integer.parseInt(prodTypeWeights[1]));
+					location.setRow(Integer.parseInt(wareHouseLocation[0]));
+					location.setColumn(Integer.parseInt(wareHouseLocation[1]));
+					warehouse.setLocation(location);
 					
 					lineCounter++;
-					
-					
-					
+					ArrayList<Integer> prodTypeList = new ArrayList<Integer>();
+					HashMap<Integer, Integer> productMap = new HashMap<Integer, Integer>();
+					String[] itemsPerProdType = fileLinsList.get(lineCounter).split(" ");
+					for (int j = 0; j < parameters.getTotalNumberOfProductTypes(); j++) {
+						prodTypeList.add(j);
+						productMap.put(j, Integer.parseInt(itemsPerProdType[j]));
+					}
+					warehouse.setProductTypeList(prodTypeList);
+					warehouse.setProductTypeToNumOfItemsMap(productMap);
+					wareHouseList.add(warehouse);
+					wareHouseMap.put(i, warehouse);
+					lineCounter++;
+					continue;
 				}
-				parameters.setProductTypeList(productTypeList);
-				parameters.setProductTypeMap(prooductTypeMap);
+				parameters.setWareHouseList(wareHouseList);;
+				parameters.setWareHouseMap(wareHouseMap);
 				lineCounter++;
 				continue;
 			}
