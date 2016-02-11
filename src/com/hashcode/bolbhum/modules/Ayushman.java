@@ -16,8 +16,6 @@ public class Ayushman {
 			for (String string : lines) {
 				System.out.println(string);
 			}
-			PriorityQueue<String> xyz = new PriorityQueue<String>();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			String message = e.getMessage();
