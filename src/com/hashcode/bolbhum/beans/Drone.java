@@ -2,7 +2,9 @@ package com.hashcode.bolbhum.beans;
 
 public class Drone {
 	private Integer droneId;
+	
 	private Integer totalWeight;
+	private Integer currentOrderId;
 	public Integer getDroneId() {
 		return droneId;
 	}
@@ -10,11 +12,16 @@ public class Drone {
 		this.droneId = droneId;
 	}
 	public Integer getTotalWeight() {
-		return totalWeight;
+		return this.totalWeight;
 	}
 	public void setTotalWeight(Integer totalWeight) {
 		this.totalWeight = totalWeight;
 	}
 	
-
+	public void setcurrentOrderId(Integer OrderId) {
+		this.currentOrderId = OrderId;
+	}
+	public Integer getcurrentOrderId() {
+		return this.currentOrderId;
+	}
 }
