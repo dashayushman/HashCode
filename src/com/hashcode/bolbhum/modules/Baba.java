@@ -5,15 +5,23 @@ import java.util.ArrayList;
 import com.hashcode.bolbhum.beans.Drone;
 import com.hashcode.bolbhum.beans.Order;
 import com.hashcode.bolbhum.beans.Params;
+import com.hashcode.bolbhum.beans.Response;
 import com.hashcode.bolbhum.utility.Utils;
 
 public class Baba {
 	public static void main(String[] args) {
 		try {
 			Utils utils = Utils.getInstance();
-			Params params = utils.getParameters();
+            ArrayList<String> lines = Utils.getInstance().getLineStringsFromFile("G:\\Github\\HashCode\\HashCode\\busy_day.in");
+			
+			int paramsLoad = Utils.getInstance().loadParams(lines);
+			Params params =  Utils.getInstance().getParameters();
 			ArrayList<Order> ordersList = params.getOrdersList();
-
+			
+			
+            Response res = new Response();
+			String outputStr = writeOutputFile(res);
+			 Utils.getInstance().writeStringToFile("G:\\Github\\HashCode\\HashCode\\busy_day.txt", outputStr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			String message = e.getMessage();
@@ -32,10 +40,10 @@ public class Baba {
 		Utils utils = Utils.getInstance();
 		Params params = utils.getParameters();
 		ArrayList<Order> ordersList = params.getOrdersList();
-		int bestOrder;
+		int bestOrder = 0;
 		int bestOrderWeight = 1000000;
 		int orderWeight = 10000;
-		Order tempOrder1;
+		Order tempOrder1 = new Order();
 		Drone tempDrone;
 		int pos1i, pos1j, pos2i, pos2j;
 
@@ -49,13 +57,13 @@ public class Baba {
 			pos2j = tempDrone.getLocation().getColumn();
 
 			orderWeight = euclidDistance(pos1i, pos1j, pos2i, pos2j)
-					+ tempDrone.getEnd();
+					+ tempDrone.getEndTime();
 			if (orderWeight < bestOrderWeight) {
 				bestOrderWeight = orderWeight;
 				bestOrder = i;
 			}
 		}
-		droneList.get(bestOrder).setStart(droneList.get(bestOrder).getEnd());
+		droneList.get(bestOrder).setStartTime(droneList.get(bestOrder).getEndTime());
 		return droneList.get(bestOrder);
 	}
 
@@ -70,7 +78,7 @@ public class Baba {
 		Utils utils = Utils.getInstance();
 		Params params = utils.getParameters();
 		ArrayList<Order> ordersList = params.getOrdersList();
-		int bestOrder;
+		int bestOrder = 0;
 		int bestOrderWeight = 1000000;
 		int orderWeight = 10000;
 		Order tempOrder;
@@ -89,7 +97,7 @@ public class Baba {
 				pos2j = tempDrone.getLocation().getColumn();
 
 				orderWeight = euclidDistance(pos1i, pos1j, pos2i, pos2j)
-						+ tempDrone.getEnd();
+						+ tempDrone.getEndTime();
 				if (orderWeight < bestOrderWeight) {
 					bestOrderWeight = orderWeight;
 					bestOrder = i;
@@ -97,5 +105,15 @@ public class Baba {
 			}
 		}
 		return ordersList.get(bestOrder);
+	}
+	
+	public static String writeOutputFile(Response res){
+		StringBuffer sb = new StringBuffer();
+		sb.append(res.getTotalCommands()+"\n");
+		for (String com : res.getCommandList()) {
+			sb.append(com+"\n");
+		}
+		
+		return sb.toString();
 	}
 }

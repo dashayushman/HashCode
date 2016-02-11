@@ -1,10 +1,11 @@
 package com.hashcode.bolbhum.modules;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.HashMap;
 
+import com.hashcode.bolbhum.beans.Drone;
+import com.hashcode.bolbhum.beans.Order;
+import com.hashcode.bolbhum.beans.WareHouse;
 import com.hashcode.bolbhum.utility.Utils;
 
 public class Ayushman {
@@ -35,4 +36,42 @@ public class Ayushman {
 			}
 		}
 	}
+	
+	public static ArrayList<WareHouse> getNavgList(Order order, Drone drone){
+		ArrayList<WareHouse> tempWarehouses = new ArrayList<WareHouse>();
+		ArrayList<WareHouse> Warehouses = Utils.getInstance().getParameters().getWareHouseList();
+
+		for(int i = 0; i < Warehouses.size(); i++) {
+		WareHouse tempWarehouse =
+		Warehouses.get(i);
+		WareHouse w = new WareHouse();
+		w.setLocation(tempWarehouse.getLocation());
+		w.setProductTypeToNumOfItemsMap(tempWarehouse.getProductTypeToNumOfItemsMap());
+		w.setWareHouseId(tempWarehouse.getWareHouseId());
+
+		HashMap<Integer, Integer> ptypeitemOrder = order.getProductTypeIdToNumOfItemsMap();
+		HashMap<Integer, Integer> ptypeitemwarehous = w.getProductTypeToNumOfItemsMap();
+
+		ArrayList<Integer> orderProducts = order.getProductTypeList();
+		ArrayList<Integer> warehouseProducts = w.getProductTypeList();
+		for (int k = 0; k < order.getProductTypeList().size(); k++) {
+			for (int j = 0; j < w.getProductTypeList().size(); j++) {
+				int opw = ptypeitemOrder.get(k);
+				int wpw = ptypeitemwarehous.get(j);
+				
+				int opid = orderProducts.get(k);
+				int wpid = warehouseProducts.get(j);
+				
+				if(wpid == opid && opw != 0 && wpw != 0){
+					tempWarehouses.add(w);
+					break;
+				}
+				
+				
+			}
+		}
+			
+		}
+		return tempWarehouses;
+		}
 }
