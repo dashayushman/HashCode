@@ -8,6 +8,15 @@ public class Order {
 	private Location location;
 	private HashMap<Integer, Integer> productTypeIdToNumOfItemsMap;
 	private ArrayList<Integer> productTypeList;
+	private Integer totalItems;
+
+	public Integer getTotalItems() {
+		return totalItems;
+	}
+
+	public void setTotalItems(Integer totalItems) {
+		this.totalItems = totalItems;
+	}
 
 	public ArrayList<Integer> getProductTypeList() {
 		return productTypeList;

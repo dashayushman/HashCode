@@ -12,7 +12,7 @@ public class Ayushman {
 		try {
 //			String filecontent = Utils.getInstance().getStringFromFile("G:\\Github\\HashCode\\HashCode\\learn_and_teach.in");
 //			System.out.println(filecontent);
-			ArrayList<String> lines = Utils.getInstance().getLineStringsFromFile("G:\\Github\\HashCode\\HashCode\\busy_day.in");
+			ArrayList<String> lines = Utils.getInstance().getLineStringsFromFile("G:\\Github\\HashCode\\HashCode\\sample.in");
 			
 			int paramsLoad = Utils.getInstance().loadParams(lines);
 			
