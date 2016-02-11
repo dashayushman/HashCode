@@ -6,6 +6,8 @@ public class Drone {
 	private Integer totalWeight;
 
 	private Location location;
+	private Integer startTime;
+	private Integer endTime;
 
 	public Location getLocation() {
 		return location;
@@ -13,6 +15,22 @@ public class Drone {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public Integer getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Integer startTime) {
+		this.startTime = startTime;
+	}
+
+	public Integer getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Integer endTime) {
+		this.endTime = endTime;
 	}
 
 	private Integer currentOrderId;
