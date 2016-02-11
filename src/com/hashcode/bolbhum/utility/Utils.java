@@ -11,7 +11,11 @@ import java.util.ArrayList;
 
 public class Utils {
 	
-	//101 : getStringFromFile file error
+	//101 : getStringFromFile file read error
+	//102 : File closing error 
+	//103 :
+	//104 : 
+	//105 : 
 
 	private static Utils utils = new Utils();
 
@@ -165,6 +169,10 @@ public class Utils {
 
 		return sb.toString();
 
+	}
+	
+	public ArrayList<ArrayList<String>> create2DStringMatrix(){
+		return new ArrayList<ArrayList<String>>();
 	}
 
 }
