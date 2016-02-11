@@ -10,12 +10,12 @@ import com.hashcode.bolbhum.utility.Utils;
 public class Ayushman {
 	public static void main(String[] args) {
 		try {
-			String filecontent = Utils.getInstance().getStringFromFile("G:\\Github\\HashCode\\HashCode\\learn_and_teach.in");
-			System.out.println(filecontent);
-			ArrayList<String> lines = Utils.getInstance().getLineStringsFromFile("G:\\Github\\HashCode\\HashCode\\learn_and_teach.in");
-			for (String string : lines) {
-				System.out.println(string);
-			}
+//			String filecontent = Utils.getInstance().getStringFromFile("G:\\Github\\HashCode\\HashCode\\learn_and_teach.in");
+//			System.out.println(filecontent);
+			ArrayList<String> lines = Utils.getInstance().getLineStringsFromFile("G:\\Github\\HashCode\\HashCode\\busy_day.in");
+			
+			int paramsLoad = Utils.getInstance().loadParams(lines);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			String message = e.getMessage();

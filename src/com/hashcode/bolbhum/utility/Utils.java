@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.hashcode.bolbhum.beans.Drone;
+import com.hashcode.bolbhum.beans.Params;
 
 public class Utils {
 	
@@ -16,6 +20,25 @@ public class Utils {
 	//103 :
 	//104 : 
 	//105 : 
+
+	private Params parameters;
+	
+	
+	public Params getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(Params parameters) {
+		this.parameters = parameters;
+	}
+
+	public static Utils getUtils() {
+		return utils;
+	}
+
+	public static void setUtils(Utils utils) {
+		Utils.utils = utils;
+	}
 
 	private static Utils utils = new Utils();
 
@@ -96,6 +119,7 @@ public class Utils {
 					+ fis.available());
 
 			fileContent = getLineStringsFromInputStream(fis);
+			System.out.println("number of lines in file = " + fileContent.size());
 			return fileContent;
 
 		} catch (IOException e) {
@@ -173,6 +197,45 @@ public class Utils {
 	
 	public ArrayList<ArrayList<String>> create2DStringMatrix(){
 		return new ArrayList<ArrayList<String>>();
+	}
+	
+	public int loadParams(ArrayList<String> fileLinsList){
+		if(parameters == null){
+			parameters = new Params();
+		}
+		ArrayList<Drone> droneList = new ArrayList<Drone>();
+		HashMap<Integer, Drone> droneMap = new HashMap<Integer, Drone>();
+		int lineCounter = 0;
+		
+		while(lineCounter <= (fileLinsList.size() - 1) ){
+			
+			System.out.println(fileLinsList.get(lineCounter));
+			
+			if(lineCounter == 0){
+				String[] basicParams = fileLinsList.get(lineCounter).split(" ");
+				parameters.setTotalRows(Integer.parseInt(basicParams[0]));
+				parameters.setTotalCols(Integer.parseInt(basicParams[1]));
+				parameters.setTotalDrones(Integer.parseInt(basicParams[2]));
+				parameters.setMaxDuration(Integer.parseInt(basicParams[3]));
+				parameters.setMaxPayload(Integer.parseInt(basicParams[4]));
+				
+				for (int i = 0; i < parameters.getTotalDrones(); i++) {
+					Drone drone = new Drone();
+					drone.setDroneId(i);
+					drone.setTotalWeight(parameters.getMaxPayload());
+					droneList.add(drone);
+					droneMap.put(i, drone);
+				}
+				parameters.setDroneList(droneList);
+				parameters.setDroneMap(droneMap);
+				lineCounter++;
+				continue;
+			}
+			if(lineCounter == 2){
+				parameters.setTotalNumberOfProductTypes();
+			}
+		}
+		return 0;
 	}
 
 }
