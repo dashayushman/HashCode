@@ -3,12 +3,15 @@ package com.hashcode.bolbhum.utility;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Utils {
+	
+	//101 : getStringFromFile file error
 
 	private static Utils utils = new Utils();
 
@@ -17,6 +20,32 @@ public class Utils {
 
 	public static Utils getInstance() {
 		return utils;
+	}
+	
+	public void writeStringToFile(String filePath,String fileContent) throws IOException{
+		File file = new File(filePath);
+		String content =fileContent;
+
+		try (FileOutputStream fop = new FileOutputStream(file)) {
+
+			// if file doesn't exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			// get the content in bytes
+			byte[] contentInBytes = content.getBytes();
+
+			fop.write(contentInBytes);
+			fop.flush();
+			fop.close();
+
+			System.out.println("Done");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException("105");
+		}
 	}
 
 	public String getStringFromFile(String fileName) throws Exception {
