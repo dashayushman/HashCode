@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hashcode.bolbhum.beans.Drone;
+import com.hashcode.bolbhum.beans.Location;
 import com.hashcode.bolbhum.beans.Params;
 import com.hashcode.bolbhum.beans.ProductType;
+import com.hashcode.bolbhum.beans.WareHouse;
 
 public class Utils {
 	
@@ -210,6 +212,9 @@ public class Utils {
 		ArrayList<ProductType> productTypeList = new ArrayList<ProductType>();
 		HashMap<Integer, ProductType> prooductTypeMap = new HashMap<Integer, ProductType>();
 		
+		ArrayList<WareHouse> wareHouseList = new ArrayList<WareHouse>();
+		HashMap<Integer, WareHouse> wareHouseMap = new HashMap<Integer, WareHouse>();
+		
 		int lineCounter = 0;
 		
 		while(lineCounter <= (fileLinsList.size() - 1) ){
@@ -263,13 +268,25 @@ public class Utils {
 			
 			//4
 			if(lineCounter == 3){
-				String[] prodTypeWeights = fileLinsList.get(lineCounter).split(" ");
-				for (int i = 0; i < parameters.getTotalNumberOfProductTypes(); i++) {
-					ProductType pt = new ProductType();
-					pt.setProductTypeId(i);
-					pt.setProductTypeWeight(Integer.parseInt(prodTypeWeights[i]));
-					productTypeList.add(pt);
-					prooductTypeMap.put(i, pt);
+				parameters.setTotalWareHouse(Integer.parseInt(fileLinsList.get(lineCounter)));
+				lineCounter++;
+				continue;
+			}
+			
+			//line 5
+			if(lineCounter == 4){
+				
+				
+				for (int i = 0; i < parameters.getTotalWareHouse(); i++) {
+					String[] prodTypeWeights = fileLinsList.get(lineCounter).split(" ");
+					Location location = new Location();
+					location.setRow(Integer.parseInt(prodTypeWeights[0]));
+					location.setColumn(Integer.parseInt(prodTypeWeights[1]));
+					
+					lineCounter++;
+					
+					
+					
 				}
 				parameters.setProductTypeList(productTypeList);
 				parameters.setProductTypeMap(prooductTypeMap);
