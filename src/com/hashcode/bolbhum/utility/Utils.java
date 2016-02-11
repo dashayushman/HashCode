@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Utils {
 	
-	//101 : getStringFromFile file error
+	//101 : getStringFromFile file read error
 
 	private static Utils utils = new Utils();
 
