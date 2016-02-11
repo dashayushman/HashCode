@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import com.hashcode.bolbhum.beans.Drone;
 import com.hashcode.bolbhum.beans.Params;
+import com.hashcode.bolbhum.beans.ProductType;
 
 public class Utils {
 	
@@ -205,12 +206,16 @@ public class Utils {
 		}
 		ArrayList<Drone> droneList = new ArrayList<Drone>();
 		HashMap<Integer, Drone> droneMap = new HashMap<Integer, Drone>();
+		
+		ArrayList<ProductType> productTypeList = new ArrayList<ProductType>();
+		HashMap<Integer, ProductType> prooductTypeMap = new HashMap<Integer, ProductType>();
+		
 		int lineCounter = 0;
 		
 		while(lineCounter <= (fileLinsList.size() - 1) ){
 			
 			System.out.println(fileLinsList.get(lineCounter));
-			
+			//first line
 			if(lineCounter == 0){
 				String[] basicParams = fileLinsList.get(lineCounter).split(" ");
 				parameters.setTotalRows(Integer.parseInt(basicParams[0]));
@@ -231,8 +236,45 @@ public class Utils {
 				lineCounter++;
 				continue;
 			}
+			
+			//second line
+			
+			if(lineCounter == 1){
+				parameters.setTotalNumberOfProductTypes(Integer.parseInt(fileLinsList.get(lineCounter)));
+				lineCounter++;
+				continue;
+			}
+			
+			// line 3
 			if(lineCounter == 2){
-				parameters.setTotalNumberOfProductTypes();
+				String[] prodTypeWeights = fileLinsList.get(lineCounter).split(" ");
+				for (int i = 0; i < parameters.getTotalNumberOfProductTypes(); i++) {
+					ProductType pt = new ProductType();
+					pt.setProductTypeId(i);
+					pt.setProductTypeWeight(Integer.parseInt(prodTypeWeights[i]));
+					productTypeList.add(pt);
+					prooductTypeMap.put(i, pt);
+				}
+				parameters.setProductTypeList(productTypeList);
+				parameters.setProductTypeMap(prooductTypeMap);
+				lineCounter++;
+				continue;
+			}
+			
+			//4
+			if(lineCounter == 3){
+				String[] prodTypeWeights = fileLinsList.get(lineCounter).split(" ");
+				for (int i = 0; i < parameters.getTotalNumberOfProductTypes(); i++) {
+					ProductType pt = new ProductType();
+					pt.setProductTypeId(i);
+					pt.setProductTypeWeight(Integer.parseInt(prodTypeWeights[i]));
+					productTypeList.add(pt);
+					prooductTypeMap.put(i, pt);
+				}
+				parameters.setProductTypeList(productTypeList);
+				parameters.setProductTypeMap(prooductTypeMap);
+				lineCounter++;
+				continue;
 			}
 		}
 		return 0;

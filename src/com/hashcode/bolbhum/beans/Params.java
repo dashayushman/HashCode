@@ -86,7 +86,7 @@ public class Params {
 		return totalNumberOfProductTypes;
 	}
 
-	public void setTotalNumberOfProductTupes(Integer totalNumberOfProducts) {
+	public void setTotalNumberOfProductTypes(Integer totalNumberOfProducts) {
 		this.totalNumberOfProductTypes = totalNumberOfProducts;
 	}
 
